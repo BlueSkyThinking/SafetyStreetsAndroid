@@ -3,12 +3,12 @@ package com.code4piter.blueskythinking.megapp.request;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class CameraAPIClient {
+public class RetrofitAPIClient {
 	private static final String BASE_URL = "https://localhost";
 
 	private static Retrofit retrofit = null;
 
-	private CameraAPIClient() {
+	private RetrofitAPIClient() {
 	}
 
 	public static Retrofit getClient() {
