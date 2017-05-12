@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">MegApp</string>
     <string name="title_activity_maps">Map</string>
+
+    <string name="gpsIsNotEnabledTitle">GPS Is Not Enabled</string>
+    <string name="gpsIsNotEnabledText">Do you wants to enable?</string>
+    <string name="Yes">Yes</string>
+    <string name="No">No</string>
 </resources>

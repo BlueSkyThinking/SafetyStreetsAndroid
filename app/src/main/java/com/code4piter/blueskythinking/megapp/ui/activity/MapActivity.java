@@ -1,22 +1,26 @@
 package com.code4piter.blueskythinking.megapp.ui.activity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.code4piter.blueskythinking.megapp.R;
 import com.code4piter.blueskythinking.megapp.model.Camera;
+import com.code4piter.blueskythinking.megapp.permissions.PermissionHelper;
 import com.code4piter.blueskythinking.megapp.ui.adapter.CameraAdapter;
 import com.code4piter.blueskythinking.megapp.ui.listeners.RecyclerItemClickListener;
+import com.code4piter.blueskythinking.megapp.utils.TrackGPS;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,12 +28,20 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.code4piter.blueskythinking.megapp.permissions.PermissionHelper.REQUEST_LOCATION;
+
 public class MapActivity extends FragmentActivity implements OnMapReadyCallback {
+
+	private static final String TAG = MapActivity.class.getSimpleName();
 
 	@BindView(R.id.menuRecyclerView)
 	RecyclerView menuRecyclerView;
-	CameraAdapter cameraAdapter;
-	private GoogleMap mMap;
+
+	private CameraAdapter cameraAdapter;
+
+	private GoogleMap map;
+
+	private TrackGPS location;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -68,10 +80,38 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
 	@Override
 	public void onMapReady(GoogleMap googleMap) {
-		mMap = googleMap;
+		map = googleMap;
 
-		LatLng piter = new LatLng(59.9352276, 30.3212176);
-		mMap.addMarker(new MarkerOptions().position(piter).title("Marker in Saint-Petersburg"));
-		mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(piter, 14.0f));
+		map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(59.9352276, 30.3212176), 14.0f));
+		setupPersonLocation();
+	}
+
+	private void setupPersonLocation() {
+		if (!PermissionHelper.verifyLocationPermission(this)) {
+
+			if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+					== PackageManager.PERMISSION_GRANTED) {
+				map.setMyLocationEnabled(true);
+			}
+
+			location = new TrackGPS(this);
+			if (!location.canGetLocation()) {
+				location.showSettingsAlert();
+			}
+		}
+	}
+
+	@Override
+	public void onRequestPermissionsResult(int requestCode,
+	                                       String permissions[], int[] grantResults) {
+		switch (requestCode) {
+			case REQUEST_LOCATION:
+				// If request is cancelled, the result arrays are empty.
+				if (grantResults.length > 0
+						&& grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+					setupPersonLocation();
+				}
+		}
 	}
 }
