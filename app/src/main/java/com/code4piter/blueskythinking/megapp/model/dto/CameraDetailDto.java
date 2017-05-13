@@ -8,9 +8,9 @@ public class CameraDetailDto {
 
 	private Double dangerLevel;
 
-	private String imageBase64;
+	private String image;
 
-	private String videoLink;
+	private String videoAndroid;
 
 	public String getName() {
 		return name;
@@ -36,19 +36,30 @@ public class CameraDetailDto {
 		this.dangerLevel = dangerLevel;
 	}
 
-	public String getImageBase64() {
-		return imageBase64;
+	public String getImage() {
+		return image;
 	}
 
-	public void setImageBase64(String imageBase64) {
-		this.imageBase64 = imageBase64;
+	public void setImage(String image) {
+		this.image = image;
 	}
 
-	public String getVideoLink() {
-		return videoLink;
+	public String getVideoAndroid() {
+		return videoAndroid;
 	}
 
-	public void setVideoLink(String videoLink) {
-		this.videoLink = videoLink;
+	public void setVideoAndroid(String videoAndroid) {
+		this.videoAndroid = videoAndroid;
+	}
+
+	@Override
+	public String toString() {
+		return "CameraDetailDto{" +
+				"name='" + name + '\'' +
+				", address='" + address + '\'' +
+				", dangerLevel=" + dangerLevel +
+				", image='" + image + '\'' +
+				", videoAndroid='" + videoAndroid + '\'' +
+				'}';
 	}
 }

@@ -2,6 +2,7 @@ package com.code4piter.blueskythinking.megapp.ui.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Location;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import com.code4piter.blueskythinking.megapp.model.dto.RequestCameraListDto;
 import com.code4piter.blueskythinking.megapp.request.CameraAPI;
 import com.code4piter.blueskythinking.megapp.request.RetrofitAPIClient;
 import com.code4piter.blueskythinking.megapp.ui.adapter.CamerasAdapter;
+import com.code4piter.blueskythinking.megapp.utils.OnLocationChange;
 import com.code4piter.blueskythinking.megapp.utils.TrackGPS;
 
 import java.util.ArrayList;
@@ -67,26 +69,72 @@ public class CamerasActivity extends AppCompatActivity {
                     public void onResponse(Call<List<CameraDto>> call, Response<List<CameraDto>> response) {
                         mAdapter.setData(response.body());
                     }
+	public static final String TAG = CamerasActivity.class.getSimpleName();
+	@BindView(R.id.searchView)
+	SearchView mSearch;
+	@BindView(R.id.recyclerView)
+	RecyclerView mRecyclerView;
+	private TrackGPS mLocation;
+	private CamerasAdapter mAdapter;
 
-                    @Override
-                    public void onFailure(Call<List<CameraDto>> call, Throwable throwable) {
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.cameras_activity);
+		ButterKnife.bind(this);
+		final Retrofit retrofit = RetrofitAPIClient.getClient();
+		final CameraAPI api = retrofit.create(CameraAPI.class);
+		mLocation = new TrackGPS(this, new OnLocationChange() {
+			@Override
+			public void doOnLocationChange(Location location) {
 
-                    }
-                });
-                return false;
-            }
+			}
+		});
+		mAdapter = new CamerasAdapter(new ArrayList<CameraDto>());
+		mRecyclerView.setAdapter(mAdapter);
+		mSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+			@Override
+			public boolean onQueryTextSubmit(String query) {
+				Log.d(TAG, "onQueryTextSubmit: ");
+				SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(CamerasActivity.this);
+				int dangerLevel = pref.getInt(FilterActivity.PREF_DANGER_LEVEL, 0);
+				int distance = pref.getInt(FilterActivity.PREF_DISTANCE, 5);
+				String sortBy = pref.getString(FilterActivity.PREF_SORT_BY, "dangerLevel");
+				double lat = mLocation.getLatitude();
+				double lng = mLocation.getLongitude();
+				RequestCameraListDto cameraListDto = new RequestCameraListDto();
+				cameraListDto.setLatitude(lat);
+				cameraListDto.setLongitude(lng);
+				cameraListDto.setDangerLevel((double) dangerLevel);
+				cameraListDto.setSearch(query);
+				cameraListDto.setSortBy(sortBy);
+				cameraListDto.setDistance(distance);
+				Call<List<CameraDto>> call = api.getAllCamerasBySearch(cameraListDto);
+				call.enqueue(new Callback<List<CameraDto>>() {
+					@Override
+					public void onResponse(Call<List<CameraDto>> call, Response<List<CameraDto>> response) {
+						mAdapter.setData(response.body());
+					}
 
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                Log.d(TAG, "onQueryTextChange: ");
-                return false;
-            }
-        });
-    }
+					@Override
+					public void onFailure(Call<List<CameraDto>> call, Throwable throwable) {
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        mLocation.stopUsingGPS();
-    }
+					}
+				});
+				return false;
+			}
+
+			@Override
+			public boolean onQueryTextChange(String newText) {
+				Log.d(TAG, "onQueryTextChange: ");
+				return false;
+			}
+		});
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		mLocation.stopUsingGPS();
+	}
 }

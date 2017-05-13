@@ -13,21 +13,13 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.code4piter.blueskythinking.megapp.R;
-import com.code4piter.blueskythinking.megapp.model.dto.LocationDto;
 import com.code4piter.blueskythinking.megapp.model.dto.NearCamerasDto;
 import com.code4piter.blueskythinking.megapp.permissions.PermissionHelper;
-import com.code4piter.blueskythinking.megapp.request.CameraAPI;
-import com.code4piter.blueskythinking.megapp.request.RetrofitAPIClient;
 import com.code4piter.blueskythinking.megapp.ui.adapter.CameraAdapter;
 
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class TrackGPS extends Service implements LocationListener {
 
@@ -47,10 +39,11 @@ public class TrackGPS extends Service implements LocationListener {
 
 	private List<NearCamerasDto> nearCamerasDtos;
 
-	public TrackGPS(Context context, List<NearCamerasDto> nearCamerasDtos, CameraAdapter cameraAdapter) {
+	private OnLocationChange onLocationChange;
+
+	public TrackGPS(Context context, OnLocationChange onLocationChange) {
 		this.context = context;
-		this.nearCamerasDtos = nearCamerasDtos;
-		this.cameraAdapter = cameraAdapter;
+		this.onLocationChange = onLocationChange;
 		getLoc();
 	}
 
@@ -113,7 +106,7 @@ public class TrackGPS extends Service implements LocationListener {
 			e.printStackTrace();
 		}
 		if (loc != null) {
-			setupNearCameras(loc);
+			onLocationChange.doOnLocationChange(loc);
 		}
 
 		return loc;
@@ -183,32 +176,9 @@ public class TrackGPS extends Service implements LocationListener {
 
 	@Override
 	public void onLocationChanged(Location location) {
-		setupNearCameras(location);
+		onLocationChange.doOnLocationChange(location);
 	}
 
-	private void setupNearCameras(Location location) {
-		CameraAPI cameraAPI = RetrofitAPIClient.getClient().create(CameraAPI.class);
-		cameraAPI.getNearCameras(new LocationDto(location.getLatitude(), location.getLongitude())).enqueue(new
-				                                                                                                   Callback<List<NearCamerasDto>>() {
-					                                                                                                   @Override
-					                                                                                                   public void onResponse(Call<List<NearCamerasDto>> call, Response<List<NearCamerasDto>>
-							                                                                                                   response) {
-						                                                                                                   if (!response.isSuccessful()) {
-							                                                                                                   return;
-						                                                                                                   }
-						                                                                                                   nearCamerasDtos.clear();
-						                                                                                                   nearCamerasDtos.addAll(response.body());
-						                                                                                                   cameraAdapter.notifyDataSetChanged();
-					                                                                                                   }
-
-					                                                                                                   @Override
-					                                                                                                   public void onFailure(Call<List<NearCamerasDto>> call, Throwable t) {
-						                                                                                                   t.printStackTrace();
-						                                                                                                   Toast.makeText(TrackGPS.this, getApplicationContext().getString(R.string
-								                                                                                                   .failedToLoadNearCameras), Toast.LENGTH_SHORT).show();
-					                                                                                                   }
-				                                                                                                   });
-	}
 
 	@Override
 	public void onStatusChanged(String s, int i, Bundle bundle) {

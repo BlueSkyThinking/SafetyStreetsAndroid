@@ -25,31 +25,21 @@
         <meta-data
             android:name="JW_LICENSE_KEY"
             android:value="mpd/qPpIAFaRo2niVECoRYnYhtQJB12uCGTveQ==" />
-        <activity
-            android:name=".ui.activity.MapActivity"
-            android:label="@string/title_activity_maps">
+        <activity android:name=".ui.activity.MapActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.PlaceActivity">
-
+        <activity android:name=".ui.activity.PlaceActivity"></activity>
+        <activity android:name=".ui.activity.FilterActivity">
         </activity>
         <activity
             android:name=".ui.activity.StreamActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-            </intent-filter>
         </activity>
         <activity android:name=".ui.activity.CamerasActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-            </intent-filter>
         </activity>
         <activity android:name=".ui.activity.FilterActivity">
             <intent-filter>
