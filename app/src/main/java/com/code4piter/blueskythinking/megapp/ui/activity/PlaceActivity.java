@@ -1,10 +1,13 @@
 package com.code4piter.blueskythinking.megapp.ui.activity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,6 +21,8 @@ import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.code4piter.blueskythinking.megapp.ui.activity.StreamActivity.EXTRA_PLACE_URI;
 
 public class PlaceActivity extends AppCompatActivity {
 
@@ -47,6 +52,18 @@ public class PlaceActivity extends AppCompatActivity {
 		}
 
 		requestCameraDetailInfo();
+
+	}
+
+	private void setListenerOnPreview(final String uri) {
+		preview.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(PlaceActivity.this, StreamActivity.class);
+				intent.putExtra(EXTRA_PLACE_URI, Uri.parse(uri));
+				startActivity(intent);
+			}
+		});
 	}
 
 	private void requestCameraDetailInfo() {
@@ -54,18 +71,22 @@ public class PlaceActivity extends AppCompatActivity {
 		cameraAPI.getDetailCamera(id).enqueue(new Callback<CameraDetailDto>() {
 			@Override
 			public void onResponse(Call<CameraDetailDto> call, Response<CameraDetailDto> response) {
-
 				if (!response.isSuccessful()) {
 					return;
 				}
 
 				CameraDetailDto cameraDetailDto = response.body();
 
-				if (cameraDetailDto.getImageBase64() != null) {
-					byte[] decodedString = Base64.decode(cameraDetailDto.getImageBase64(), Base64.DEFAULT);
+				if (cameraDetailDto.getImage() != null) {
+					byte[] decodedString = Base64.decode(cameraDetailDto.getImage(), Base64.DEFAULT);
 					Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
 					preview.setImageBitmap(decodedByte);
 				}
+
+				if (cameraDetailDto.getVideoAndroid() != null) {
+					setListenerOnPreview(cameraDetailDto.getVideoAndroid());
+				}
+
 				name.setText(cameraDetailDto.getName());
 				address.setText(cameraDetailDto.getAddress());
 				if (cameraDetailDto.getDangerLevel() != null) {
