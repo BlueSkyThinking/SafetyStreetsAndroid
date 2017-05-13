@@ -5,23 +5,19 @@ public class RequestCameraListDto {
 
 	private Integer distance;
 
-    private Boolean sortDirection;
-
-    public Boolean getSortDirection() {
-        return sortDirection;
-    }
-
-    public void setSortDirection(Boolean sortDirection) {
-        this.sortDirection = sortDirection;
-    }
-
-    private Double DangerLevel;
-
+	private Boolean sortDirection;
+	private Double DangerLevel;
 	private Double latitude;
-
 	private Double longitude;
-
 	private String sortBy;
+
+	public Boolean getSortDirection() {
+		return sortDirection;
+	}
+
+	public void setSortDirection(Boolean sortDirection) {
+		this.sortDirection = sortDirection;
+	}
 
 	public String getSearch() {
 		return search;

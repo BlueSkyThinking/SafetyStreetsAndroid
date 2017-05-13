@@ -11,9 +11,6 @@ import com.code4piter.blueskythinking.megapp.model.dto.CameraDto;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 public class CamerasAdapter extends RecyclerView.Adapter<CamerasAdapter.CameraViewHolder> {
 	List<CameraDto> list;
 
@@ -23,7 +20,8 @@ public class CamerasAdapter extends RecyclerView.Adapter<CamerasAdapter.CameraVi
 
 	@Override
 	public CameraViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-		View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.camera_item, parent);
+		View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.camera_item, parent, false);
+
 		return new CameraViewHolder(view);
 	}
 
@@ -40,20 +38,23 @@ public class CamerasAdapter extends RecyclerView.Adapter<CamerasAdapter.CameraVi
 		this.notifyDataSetChanged();
 	}
 
+	public CameraDto getItem(int index) {
+		return list.get(index);
+	}
+
 	@Override
 	public int getItemCount() {
 		return list.size();
 	}
 
 	class CameraViewHolder extends RecyclerView.ViewHolder {
-		@BindView(R.id.name)
 		TextView name;
-		@BindView(R.id.address)
 		TextView address;
 
 		public CameraViewHolder(View itemView) {
 			super(itemView);
-			ButterKnife.bind(itemView);
+			name = (TextView) itemView.findViewById(R.id.name);
+			address = (TextView) itemView.findViewById(R.id.address);
 		}
 	}
 }

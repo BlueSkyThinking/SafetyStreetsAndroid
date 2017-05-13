@@ -43,5 +43,8 @@
     <string name="switchBtn">Переключатель</string>
     <string name="byDistance">По дистанции</string>
     <string name="nearestCameras">Камеры в радиусе 15 киллометров</string>
-    <string name="dangerLevel">Уровень опасности: </string>
+    <string name="dangerLevel">Уровень опасности: %.2f</string>
+    <string name="cameraName">Имя камеры: %s</string>
+    <string name="cameraAddress">Адрес камеры: %s</string>
+    <string name="filter">filter</string>
 </resources>

@@ -8,13 +8,9 @@ public class CameraDto {
 
 	private String address;
 
-	private Long latitude;
+	private Double latitude;
 
-	private Long longitude;
-
-	private Double dangerLevel;
-
-	private String imageBase64;
+	private Double longitude;
 
 	public Long getId() {
 		return id;
@@ -40,35 +36,30 @@ public class CameraDto {
 		this.address = address;
 	}
 
-	public Long getLatitude() {
+	public Double getLatitude() {
 		return latitude;
 	}
 
-	public void setLatitude(Long latitude) {
+	public void setLatitude(Double latitude) {
 		this.latitude = latitude;
 	}
 
-	public Long getLongitude() {
+	public Double getLongitude() {
 		return longitude;
 	}
 
-	public void setLongitude(Long longitude) {
+	public void setLongitude(Double longitude) {
 		this.longitude = longitude;
 	}
 
-	public Double getDangerLevel() {
-		return dangerLevel;
-	}
-
-	public void setDangerLevel(Double dangerLevel) {
-		this.dangerLevel = dangerLevel;
-	}
-
-	public String getImageBase64() {
-		return imageBase64;
-	}
-
-	public void setImageBase64(String imageBase64) {
-		this.imageBase64 = imageBase64;
+	@Override
+	public String toString() {
+		return "CameraDto{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				", address='" + address + '\'' +
+				", latitude=" + latitude +
+				", longitude=" + longitude +
+				'}';
 	}
 }

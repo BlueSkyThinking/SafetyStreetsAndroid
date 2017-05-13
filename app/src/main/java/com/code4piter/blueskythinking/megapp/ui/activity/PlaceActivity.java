@@ -41,8 +41,6 @@ public class PlaceActivity extends AppCompatActivity {
 	TextView address;
 	@BindView(R.id.dangerLevel)
 	TextView dangerLevel;
-	@BindView(R.id.dangerLevelDescription)
-	TextView dangerLevelDescription;
 	@BindView(R.id.progressBar)
 	ProgressBar progressBar;
 
@@ -99,11 +97,13 @@ public class PlaceActivity extends AppCompatActivity {
 					setListenerOnPreview(cameraDetailDto.getVideoAndroid());
 				}
 
-				name.setText(cameraDetailDto.getName());
-				address.setText(cameraDetailDto.getAddress());
+				name.setVisibility(View.VISIBLE);
+				name.setText(getString(R.string.cameraName, cameraDetailDto.getName()));
+				address.setVisibility(View.VISIBLE);
+				address.setText(getString(R.string.cameraAddress, cameraDetailDto.getAddress()));
 				if (cameraDetailDto.getDangerLevel() != null) {
-					dangerLevelDescription.setVisibility(View.VISIBLE);
-					dangerLevel.setText(cameraDetailDto.getDangerLevel().toString());
+					dangerLevel.setVisibility(View.VISIBLE);
+					dangerLevel.setText(getString(R.string.dangerLevel, cameraDetailDto.getDangerLevel()));
 				}
 			}
 

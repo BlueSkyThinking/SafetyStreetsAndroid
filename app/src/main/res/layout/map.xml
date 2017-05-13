@@ -16,5 +16,5 @@
         android:layout_marginBottom="@dimen/searchButtonOnMapMaterialMargin"
         android:background="@drawable/search_button_background"
         android:scaleType="center"
-        app:srcCompat="@drawable/ic_search" />
+        app:srcCompat="@drawable/ic_search_on_map" />
 </fragment>

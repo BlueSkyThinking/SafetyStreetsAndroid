@@ -25,7 +25,10 @@
         <meta-data
             android:name="JW_LICENSE_KEY"
             android:value="mpd/qPpIAFaRo2niVECoRYnYhtQJB12uCGTveQ==" />
-        <activity android:name=".ui.activity.MapActivity">
+
+        <activity
+            android:name=".ui.activity.MapActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,16 +37,23 @@
         </activity>
         <activity
             android:name=".ui.activity.PlaceActivity"
-            android:parentActivityName=".ui.activity.MapActivity"></activity>
-        <activity android:name=".ui.activity.FilterActivity">
+            android:parentActivityName=".ui.activity.MapActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity
+            android:name=".ui.activity.FilterActivity"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".ui.activity.StreamActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenSize">
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".ui.activity.SearchActivity"
-            android:parentActivityName=".ui.activity.MapActivity">
+            android:parentActivityName=".ui.activity.MapActivity"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 

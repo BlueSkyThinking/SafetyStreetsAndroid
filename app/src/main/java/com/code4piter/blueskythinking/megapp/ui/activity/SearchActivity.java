@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
@@ -19,6 +20,7 @@ import com.code4piter.blueskythinking.megapp.model.dto.RequestCameraListDto;
 import com.code4piter.blueskythinking.megapp.request.CameraAPI;
 import com.code4piter.blueskythinking.megapp.request.RetrofitAPIClient;
 import com.code4piter.blueskythinking.megapp.ui.adapter.CamerasAdapter;
+import com.code4piter.blueskythinking.megapp.ui.listeners.RecyclerItemClickListener;
 import com.code4piter.blueskythinking.megapp.utils.OnLocationChange;
 import com.code4piter.blueskythinking.megapp.utils.TrackGPS;
 
@@ -31,6 +33,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+
+import static com.code4piter.blueskythinking.megapp.ui.activity.PlaceActivity.CAMERA_ID;
 
 public class SearchActivity extends AppCompatActivity {
 	public static final String TAG = SearchActivity.class.getSimpleName();
@@ -59,10 +63,24 @@ public class SearchActivity extends AppCompatActivity {
 		setOnFilterButtonListener();
 
 		mAdapter = new CamerasAdapter(new ArrayList<CameraDto>());
+		mRecyclerView.setLayoutManager(new LinearLayoutManager(SearchActivity.this));
 		mRecyclerView.setAdapter(mAdapter);
+
+		mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
+			@Override
+			public void onItemClick(View view, int position) {
+				startPlaceActivity(mAdapter.getItem(position).getId());
+			}
+		}));
 
 		setupSearch();
 		setupActionBar();
+	}
+
+	private void startPlaceActivity(Long id) {
+		Intent intent = new Intent(SearchActivity.this, PlaceActivity.class);
+		intent.putExtra(CAMERA_ID, id);
+		startActivity(intent);
 	}
 
 	private void setOnFilterButtonListener() {
@@ -96,24 +114,31 @@ public class SearchActivity extends AppCompatActivity {
 				String sortBy = pref.getString(FilterActivity.PREF_SORT_BY, "danger_level");
 				double lat = mLocation.getLatitude();
 				double lng = mLocation.getLongitude();
-				RequestCameraListDto cameraListDto = new RequestCameraListDto();
+				final RequestCameraListDto cameraListDto = new RequestCameraListDto();
 				cameraListDto.setLatitude(lat);
 				cameraListDto.setLongitude(lng);
 //                cameraListDto.setDangerLevel((double) dangerLevel);
 				cameraListDto.setSearch(query);
 				cameraListDto.setSortBy(sortBy);
-				cameraListDto.setDistance(distance);
+				cameraListDto.setDistance(distance * 1000);
 				cameraListDto.setSortDirection(sortDirection);
 				Call<List<CameraDto>> call = api.getAllCamerasBySearch(cameraListDto);
 				call.enqueue(new Callback<List<CameraDto>>() {
 					@Override
 					public void onResponse(Call<List<CameraDto>> call, Response<List<CameraDto>> response) {
+						Log.d(TAG, "onResponse: " + response.toString());
+						if (response.body() != null)
+							Log.d(TAG, "onResponse: " + response.body().toString());
+						if (!response.isSuccessful()) {
+							return;
+						}
+
 						mAdapter.setData(response.body());
 					}
 
 					@Override
 					public void onFailure(Call<List<CameraDto>> call, Throwable throwable) {
-
+						throwable.printStackTrace();
 					}
 				});
 				return false;

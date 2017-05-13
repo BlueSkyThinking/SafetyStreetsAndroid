@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#3b4356</color>
+    <color name="colorPrimaryDark">#3b4356</color>
+    <color name="colorAccent">#FFA800</color>
 
     <color name="navigationMenuTextColor">#FF000000</color>
     <color name="transparent">#00000000</color>
 
     <color name="colorGrey">#c0e1e1e1</color>
-    <color name="colorText">#292828</color>
+    <color name="colorText">#ffffff</color>
 
     <color name="sortFilterActivityBackground">#ffffff</color>
     <color name="white">#ffffff</color>
 
     <color name="grayTransparent">#d7eaeaea</color>
+
+    <color name="background">#414c60</color>
+    <color name="listItem">#414c60</color>
 </resources>
