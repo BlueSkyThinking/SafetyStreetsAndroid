@@ -5,11 +5,14 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.code4piter.blueskythinking.megapp.R;
 import com.code4piter.blueskythinking.megapp.model.dto.CameraDetailDto;
@@ -38,6 +41,10 @@ public class PlaceActivity extends AppCompatActivity {
 	TextView address;
 	@BindView(R.id.dangerLevel)
 	TextView dangerLevel;
+	@BindView(R.id.dangerLevelDescription)
+	TextView dangerLevelDescription;
+	@BindView(R.id.progressBar)
+	ProgressBar progressBar;
 
 	private Long id;
 
@@ -52,6 +59,7 @@ public class PlaceActivity extends AppCompatActivity {
 		}
 
 		requestCameraDetailInfo();
+		setupActionBar();
 
 	}
 
@@ -72,8 +80,12 @@ public class PlaceActivity extends AppCompatActivity {
 			@Override
 			public void onResponse(Call<CameraDetailDto> call, Response<CameraDetailDto> response) {
 				if (!response.isSuccessful()) {
+					Toast.makeText(PlaceActivity.this, "Произошла проблема с загрузкой", Toast
+							.LENGTH_SHORT).show();
+					finish();
 					return;
 				}
+				progressBar.setVisibility(View.GONE);
 
 				CameraDetailDto cameraDetailDto = response.body();
 
@@ -90,6 +102,7 @@ public class PlaceActivity extends AppCompatActivity {
 				name.setText(cameraDetailDto.getName());
 				address.setText(cameraDetailDto.getAddress());
 				if (cameraDetailDto.getDangerLevel() != null) {
+					dangerLevelDescription.setVisibility(View.VISIBLE);
 					dangerLevel.setText(cameraDetailDto.getDangerLevel().toString());
 				}
 			}
@@ -97,7 +110,17 @@ public class PlaceActivity extends AppCompatActivity {
 			@Override
 			public void onFailure(Call<CameraDetailDto> call, Throwable t) {
 				t.printStackTrace();
+				Toast.makeText(PlaceActivity.this, "Произошла проблема с загрузкой", Toast
+						.LENGTH_SHORT).show();
+				finish();
 			}
 		});
+	}
+
+	private void setupActionBar() {
+		ActionBar toolbar = getSupportActionBar();
+		if (toolbar != null) {
+			toolbar.setDisplayHomeAsUpEnabled(true);
+		}
 	}
 }

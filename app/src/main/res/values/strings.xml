@@ -41,4 +41,7 @@
     </string-array>
     <string name="showBtn">Показать</string>
     <string name="switchBtn">Переключатель</string>
+    <string name="byDistance">По дистанции</string>
+    <string name="nearestCameras">Камеры в радиусе 15 киллометров</string>
+    <string name="dangerLevel">Уровень опасности: </string>
 </resources>

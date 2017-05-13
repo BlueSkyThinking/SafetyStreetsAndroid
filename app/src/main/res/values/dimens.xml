@@ -12,7 +12,9 @@
 
     <dimen name="activity_horizontal_margin">16dp</dimen>
 
-    <dimen name="searchButtonOnMapMarginRight">8dp</dimen>
+    <dimen name="searchButtonOnMapMaterialMargin">8dp</dimen>
     <dimen name="searchButtonOnMapMarginTop">48dp</dimen>
     <dimen name="searchButtonOnMapSize">48dp</dimen>
+    <dimen name="filterButtonSize">32dp</dimen>
+
 </resources>

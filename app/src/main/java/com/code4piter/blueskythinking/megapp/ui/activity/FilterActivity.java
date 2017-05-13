@@ -19,11 +19,11 @@ public class FilterActivity extends Activity {
     public static final String PREF_DISTANCE = "PREF_DISTANCE";
     public static final String PREF_SORT_BY = "PREF_SORT_BY";
     public static final String PREF_SORT_DIRECTION = "PREF_SORT_DIRECTION";
+    public static final String TAG = FilterActivity.class.getSimpleName();
     private CardView cardView, cardView2, cardView3;
     private RadioGroup group, group2;
     private SharedPreferences preferences;
     private Spinner spinner;
-    public static final String TAG = FilterActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +46,7 @@ public class FilterActivity extends Activity {
         int distance = preferences.getInt(FilterActivity.PREF_DISTANCE, 5);
         String sortBy = preferences.getString(FilterActivity.PREF_SORT_BY, "dangerLevel");
         spinner.setSelection(distance/5-1);
+
         if (sortDirection) {
             group2.check(R.id.ascSort);
         } else {

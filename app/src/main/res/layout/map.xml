@@ -8,14 +8,13 @@
     android:layout_height="match_parent"
     tools:context="com.code4piter.blueskythinking.megapp.ui.activity.MapActivity">
 
-    <android.support.v7.widget.AppCompatImageButton
+    <android.support.v7.widget.AppCompatImageView
         android:id="@+id/search"
-        android:layout_width="@dimen/searchButtonOnMapSize"
-        android:layout_height="@dimen/searchButtonOnMapMarginTop"
-        android:layout_gravity="right|top"
-        android:layout_marginEnd="@dimen/searchButtonOnMapMarginRight"
-        android:layout_marginRight="@dimen/searchButtonOnMapMarginRight"
-        android:layout_marginTop="@dimen/searchButtonOnMapMarginTop"
-        android:background="@color/transparent"
-        app:srcCompat="@drawable/ic_dehaze" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|bottom"
+        android:layout_marginBottom="@dimen/searchButtonOnMapMaterialMargin"
+        android:background="@drawable/search_button_background"
+        android:scaleType="center"
+        app:srcCompat="@drawable/ic_search" />
 </fragment>

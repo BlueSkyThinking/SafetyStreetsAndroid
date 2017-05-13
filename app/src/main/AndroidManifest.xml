@@ -32,14 +32,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.PlaceActivity"></activity>
+        <activity
+            android:name=".ui.activity.PlaceActivity"
+            android:parentActivityName=".ui.activity.MapActivity"></activity>
         <activity android:name=".ui.activity.FilterActivity">
         </activity>
         <activity
             android:name=".ui.activity.StreamActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize">
         </activity>
-        <activity android:name=".ui.activity.CamerasActivity">
+        <activity
+            android:name=".ui.activity.SearchActivity"
+            android:parentActivityName=".ui.activity.MapActivity">
         </activity>
     </application>
 
