@@ -51,4 +51,15 @@ public class CameraDetailDto {
 	public void setVideoLink(String videoLink) {
 		this.videoLink = videoLink;
 	}
+
+	@Override
+	public String toString() {
+		return "CameraDetailDto{" +
+				"name='" + name + '\'' +
+				", address='" + address + '\'' +
+				", dangerLevel=" + dangerLevel +
+				", imageBase64='" + imageBase64 + '\'' +
+				", videoLink='" + videoLink + '\'' +
+				'}';
+	}
 }

@@ -92,7 +92,6 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 		startActivity(intent);
 	}
 
-
 	private void setupAllMapCameras() {
 		CameraAPI cameraAPI = RetrofitAPIClient.getClient().create(CameraAPI.class);
 		cameraAPI.getAllCamerasForMap().enqueue(new Callback<List<MapCameraDto>>() {
@@ -106,10 +105,11 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 					map.addMarker(new MarkerOptions().position(new LatLng(mapCameraDto.getLatitude(),
 							mapCameraDto.getLongitude())).title(mapCameraDto.getId().toString()));
 				}
-				map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+				map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
 					@Override
-					public void onInfoWindowClick(Marker marker) {
+					public boolean onMarkerClick(Marker marker) {
 						startPlaceActivity(Long.parseLong(marker.getTitle()));
+						return true;
 					}
 				});
 			}
@@ -138,14 +138,14 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 				map.setMyLocationEnabled(true);
 			}
 
-			TrackGPS location = new TrackGPS(this, getOnLocationChangeUpadteNears());
+			TrackGPS location = new TrackGPS(this, getOnLocationChangeUpdateNears());
 			if (!location.canGetLocation()) {
 				location.showSettingsAlert();
 			}
 		}
 	}
 
-	private OnLocationChange getOnLocationChangeUpadteNears() {
+	private OnLocationChange getOnLocationChangeUpdateNears() {
 		return new OnLocationChange() {
 			@Override
 			public void doOnLocationChange(Location location) {

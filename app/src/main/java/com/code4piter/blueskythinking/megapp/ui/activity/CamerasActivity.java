@@ -1,17 +1,13 @@
 package com.code4piter.blueskythinking.megapp.ui.activity;
 
-import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 
 import com.code4piter.blueskythinking.megapp.R;
 import com.code4piter.blueskythinking.megapp.model.dto.CameraDto;
-import com.code4piter.blueskythinking.megapp.model.dto.RequestCameraListDto;
 import com.code4piter.blueskythinking.megapp.request.CameraAPI;
 import com.code4piter.blueskythinking.megapp.request.RetrofitAPIClient;
 import com.code4piter.blueskythinking.megapp.ui.adapter.CamerasAdapter;
@@ -19,13 +15,9 @@ import com.code4piter.blueskythinking.megapp.utils.OnLocationChange;
 import com.code4piter.blueskythinking.megapp.utils.TrackGPS;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class CamerasActivity extends AppCompatActivity {
@@ -50,7 +42,7 @@ public class CamerasActivity extends AppCompatActivity {
 	    });
         mAdapter = new CamerasAdapter(new ArrayList<CameraDto>());
         mRecyclerView.setAdapter(mAdapter);
-        mSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+       /* mSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 Log.d(TAG, "onQueryTextSubmit: ");
@@ -87,7 +79,7 @@ public class CamerasActivity extends AppCompatActivity {
                 Log.d(TAG, "onQueryTextChange: ");
                 return false;
             }
-        });
+        });*/
     }
 
     @Override
