@@ -73,10 +73,18 @@
     <TextView
         style="@style/TvForSpinnerStyle"
         android:text="@string/filter2"/>
-    <android.support.v7.widget.AppCompatSpinner
-        android:id="@+id/filter2Spinner"
-        style="@style/SpinnerStyle"
-        android:entries="@array/filter2list" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/white">
+
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/filter2Spinner"
+            style="@style/SpinnerStyle"
+            android:entries="@array/filter2list" />
+    </RelativeLayout>
+
 
     <View
         android:layout_width="fill_parent"

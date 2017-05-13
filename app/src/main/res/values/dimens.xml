@@ -15,5 +15,4 @@
     <dimen name="searchButtonOnMapMarginRight">8dp</dimen>
     <dimen name="searchButtonOnMapMarginTop">48dp</dimen>
     <dimen name="searchButtonOnMapSize">48dp</dimen>
-
 </resources>
