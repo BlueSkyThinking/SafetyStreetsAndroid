@@ -1,19 +1,16 @@
 package com.code4piter.blueskythinking.megapp.model.dto;
 
-public class MapCameraDto {
-
-	private Long id;
+public class LocationDto {
 
 	private Double latitude;
-
 	private Double longitude;
 
-	public Long getId() {
-		return id;
+	public LocationDto() {
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public LocationDto(Double latitude, Double longtitude) {
+		this.latitude = latitude;
+		this.longitude = longtitude;
 	}
 
 	public Double getLatitude() {
@@ -24,11 +21,11 @@ public class MapCameraDto {
 		this.latitude = latitude;
 	}
 
-	public Double getLongitude() {
+	public Double getLongtitude() {
 		return longitude;
 	}
 
-	public void setLongitude(Double longitude) {
-		this.longitude = longitude;
+	public void setLongtitude(Double longtitude) {
+		this.longitude = longtitude;
 	}
 }

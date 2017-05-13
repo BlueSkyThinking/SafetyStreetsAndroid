@@ -7,5 +7,8 @@
     <string name="Yes">Yes</string>
     <string name="No">No</string>
 
-    <string name="CameraPreviewCD">Camera preview</string>
+    <string name="cameraPreviewCD">Camera preview</string>
+
+    <string name="failedToLoadAllMapPoints">Markers request failed</string>
+    <string name="failedToLoadNearCameras">Near cameras request failed</string>
 </resources>

@@ -12,6 +12,8 @@ import butterknife.ButterKnife;
 
 public class PlaceActivity extends AppCompatActivity {
 
+	public static final String CAMERA_ID = "cameraId";
+
 	@BindView(R.id.preview)
 	ImageView preview;
 	@BindView(R.id.name)

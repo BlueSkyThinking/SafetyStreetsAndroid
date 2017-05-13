@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:contentDescription="@string/CameraPreviewCD"
+            android:contentDescription="@string/cameraPreviewCD"
             android:elevation="@dimen/elevation"
             android:padding="@dimen/photoPreviewPadding"
             android:scaleType="centerInside"
