@@ -11,8 +11,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.code4piter.blueskythinking.megapp.R;
 import com.code4piter.blueskythinking.megapp.model.dto.CameraDto;
@@ -42,8 +44,6 @@ public class SearchActivity extends AppCompatActivity {
 	SearchView mSearch;
 	@BindView(R.id.recyclerView)
 	RecyclerView mRecyclerView;
-	@BindView(R.id.filter)
-	ImageView filter;
 	private TrackGPS mLocation;
 	private CamerasAdapter mAdapter;
 
@@ -60,8 +60,6 @@ public class SearchActivity extends AppCompatActivity {
 			}
 		});
 
-		setOnFilterButtonListener();
-
 		mAdapter = new CamerasAdapter(new ArrayList<CameraDto>());
 		mRecyclerView.setLayoutManager(new LinearLayoutManager(SearchActivity.this));
 		mRecyclerView.setAdapter(mAdapter);
@@ -77,20 +75,28 @@ public class SearchActivity extends AppCompatActivity {
 		setupActionBar();
 	}
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.action_menu, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case R.id.action_filter:
+				Intent intent = new Intent(SearchActivity.this, FilterActivity.class);
+				startActivity(intent);
+				return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
 	private void startPlaceActivity(Long id) {
 		Intent intent = new Intent(SearchActivity.this, PlaceActivity.class);
 		intent.putExtra(CAMERA_ID, id);
 		startActivity(intent);
-	}
-
-	private void setOnFilterButtonListener() {
-		filter.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(SearchActivity.this, FilterActivity.class);
-				startActivity(intent);
-			}
-		});
 	}
 
 	private void setupActionBar() {

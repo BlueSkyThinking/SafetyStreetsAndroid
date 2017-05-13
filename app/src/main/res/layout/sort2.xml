@@ -2,21 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/listItem"
     android:orientation="vertical">
     <RadioGroup
         android:id="@+id/radioGroup"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/listItem">
         <RadioButton
             android:id="@+id/ascSort"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="По возрастанию" />
+            android:text="По возрастанию"
+            android:textColor="@color/colorText" />
         <RadioButton
             android:id="@+id/dscSort"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="По убыванию"
+            android:textColor="@color/colorText"
             />
 
     </RadioGroup>

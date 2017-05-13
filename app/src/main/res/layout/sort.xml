@@ -1,23 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/listItem"
+    android:orientation="vertical">
 <RadioGroup
     android:id="@+id/radioGroup"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/listItem">
 
     <RadioButton
         android:id="@+id/dangerButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="По уровню опасности" />
+        android:text="По уровню опасности"
+        android:textColor="@color/colorText" />
 
     <RadioButton
         android:id="@+id/distanceButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="По расстоянию" />
+        android:text="По расстоянию"
+        android:textColor="@color/colorText" />
 
 </RadioGroup>
 </LinearLayout>

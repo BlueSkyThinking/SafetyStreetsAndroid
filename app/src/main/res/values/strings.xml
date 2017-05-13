@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MegApp</string>
+    <string name="app_name">SafetyStreets</string>
 
     <string name="gpsIsNotEnabledTitle">GPS Is Not Enabled</string>
     <string name="gpsIsNotEnabledText">Do you wants to enable?</string>
