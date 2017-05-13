@@ -3,6 +3,7 @@ package com.code4piter.blueskythinking.megapp.ui.activity;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.code4piter.blueskythinking.megapp.R;
+import com.code4piter.blueskythinking.megapp.model.dto.LocationDto;
 import com.code4piter.blueskythinking.megapp.model.dto.MapCameraDto;
 import com.code4piter.blueskythinking.megapp.model.dto.NearCamerasDto;
 import com.code4piter.blueskythinking.megapp.permissions.PermissionHelper;
@@ -19,6 +21,7 @@ import com.code4piter.blueskythinking.megapp.request.CameraAPI;
 import com.code4piter.blueskythinking.megapp.request.RetrofitAPIClient;
 import com.code4piter.blueskythinking.megapp.ui.adapter.CameraAdapter;
 import com.code4piter.blueskythinking.megapp.ui.listeners.RecyclerItemClickListener;
+import com.code4piter.blueskythinking.megapp.utils.OnLocationChange;
 import com.code4piter.blueskythinking.megapp.utils.TrackGPS;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -50,8 +53,6 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 	private CameraAdapter cameraAdapter;
 
 	private GoogleMap map;
-
-	private TrackGPS location;
 
 	private List<NearCamerasDto> nearCamerasDtos;
 
@@ -137,11 +138,40 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 				map.setMyLocationEnabled(true);
 			}
 
-			location = new TrackGPS(this, nearCamerasDtos, cameraAdapter);
+			TrackGPS location = new TrackGPS(this, getOnLocationChangeUpadteNears());
 			if (!location.canGetLocation()) {
 				location.showSettingsAlert();
 			}
 		}
+	}
+
+	private OnLocationChange getOnLocationChangeUpadteNears() {
+		return new OnLocationChange() {
+			@Override
+			public void doOnLocationChange(Location location) {
+				CameraAPI cameraAPI = RetrofitAPIClient.getClient().create(CameraAPI.class);
+				cameraAPI.getNearCameras(new LocationDto(location.getLatitude(), location.getLongitude()))
+						.enqueue(new Callback<List<NearCamerasDto>>() {
+							@Override
+							public void onResponse(Call<List<NearCamerasDto>> call, Response<List<NearCamerasDto>>
+									response) {
+								if (!response.isSuccessful()) {
+									return;
+								}
+								nearCamerasDtos.clear();
+								nearCamerasDtos.addAll(response.body());
+								cameraAdapter.notifyDataSetChanged();
+							}
+
+							@Override
+							public void onFailure(Call<List<NearCamerasDto>> call, Throwable t) {
+								t.printStackTrace();
+								Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string
+										.failedToLoadNearCameras), Toast.LENGTH_SHORT).show();
+							}
+						});
+			}
+		};
 	}
 
 	@Override

@@ -6,6 +6,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.code4piter.blueskythinking.megapp.R;
+import com.code4piter.blueskythinking.megapp.request.CameraAPI;
+import com.code4piter.blueskythinking.megapp.request.RetrofitAPIClient;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,5 +30,10 @@ public class PlaceActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_place);
 		ButterKnife.bind(this);
+	}
+
+	private void requestCameraDetailInfo() {
+		CameraAPI cameraAPI = RetrofitAPIClient.getClient().create(CameraAPI.class);
+
 	}
 }
