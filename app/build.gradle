@@ -69,4 +69,7 @@ dependencies {
     annotationProcessor "com.google.dagger:dagger-compiler:2.9"
     provided 'javax.annotation:jsr250-api:1.0'
     compile 'com.google.android.gms:play-services-maps:10.2.4'
+
+    compile 'com.longtailvideo.jwplayer:jwplayer-core:+'
+    compile 'com.longtailvideo.jwplayer:jwplayer-common:+'
 }

@@ -17,7 +17,7 @@ import retrofit2.http.Path;
 
 public interface CameraAPI {
 	@GET("/camera/search")
-	Call<List<CameraDto>> getAllCameras(@Body RequestCameraListDto requestCameraListDto);
+		Call<List<CameraDto>> getAllCameras(@Body RequestCameraListDto requestCameraListDto);
 
 	@GET("/camera/get/{cameraId}")
 	Call<CameraDetailDto> getDetailCamera(@Path("cameraId") Long id);
