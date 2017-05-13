@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.code4piter.blueskythinking.megapp.R;
@@ -50,6 +51,9 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 	@BindView(R.id.menuRecyclerView)
 	RecyclerView menuRecyclerView;
 
+	@BindView(R.id.search)
+	ImageView search;
+
 	private CameraAdapter cameraAdapter;
 
 	private GoogleMap map;
@@ -68,6 +72,17 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
 		setupNavigationCamerasAdapter();
 		setupAllMapCameras();
+		setupSearchButton();
+	}
+
+	private void setupSearchButton() {
+		search.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(MapActivity.this, FilterActivity.class);
+				startActivity(intent);
+			}
+		});
 	}
 
 	private void setupNavigationCamerasAdapter() {

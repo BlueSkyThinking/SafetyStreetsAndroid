@@ -5,16 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/sortFilterActivityBackground"
-    tools:context="ved.com.myapplication.MainActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".ui.activity.FilterActivity">
 
     <TextView
         style="@style/TopicStyle"
         android:text="@string/sort"/>
 
     <android.support.v7.widget.AppCompatSpinner
-        style="@style/SpinnerStyle"
         android:id="@+id/sortSpinner"
+        style="@style/SpinnerStyle"
         android:entries="@array/sortlist" />
 
     <TextView
@@ -22,12 +22,12 @@
         android:text="@string/show"/>
     
     <RadioGroup
+        android:id="@+id/showRg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/showRg"
-        android:orientation="vertical"
         android:background="@color/sortFilterActivityBackground"
-        android:elevation="5dp">
+        android:elevation="5dp"
+        android:orientation="vertical">
     <RadioButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -46,8 +46,8 @@
 
     <TextView
         style="@style/TopicStyle"
-        android:text="@string/filters"
-        android:elevation="6dp"/>
+        android:elevation="6dp"
+        android:text="@string/filters" />
 
     <View
         android:layout_width="fill_parent"
@@ -58,24 +58,24 @@
         style="@style/TvForSpinnerStyle"
         android:text="@string/filter0"/>
     <android.support.v7.widget.AppCompatSpinner
-        style="@style/SpinnerStyle"
         android:id="@+id/filter0Spinner"
+        style="@style/SpinnerStyle"
         android:entries="@array/filter0list"/>
 
     <TextView
         style="@style/TvForSpinnerStyle"
         android:text="@string/filter1"/>
     <android.support.v7.widget.AppCompatSpinner
-        style="@style/SpinnerStyle"
         android:id="@+id/filter1Spinner"
+        style="@style/SpinnerStyle"
         android:entries="@array/filter1list"/>
 
     <TextView
         style="@style/TvForSpinnerStyle"
         android:text="@string/filter2"/>
     <android.support.v7.widget.AppCompatSpinner
-        style="@style/SpinnerStyle"
         android:id="@+id/filter2Spinner"
+        style="@style/SpinnerStyle"
         android:entries="@array/filter2list" />
 
     <View
@@ -84,23 +84,23 @@
         android:background="#9d9b9b"/>
 
     <android.support.v7.widget.SwitchCompat
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:background="@color/sortFilterActivityBackground"
-        android:text="@string/switchBtn"
         android:id="@+id/switchBtn"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:background="@color/sortFilterActivityBackground"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:text="@string/switchBtn" />
 
     <Button
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:textSize="18sp"
-        android:textColor="@color/sortFilterActivityBackground"
+        android:id="@+id/searchButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
         android:text="@string/showBtn"
-        android:onClick="show"
-        android:background="@color/colorPrimary"/>
+        android:textColor="@color/sortFilterActivityBackground"
+        android:textSize="18sp" />
 
 </LinearLayout>
