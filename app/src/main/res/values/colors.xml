@@ -6,4 +6,9 @@
 
     <color name="navigationMenuTextColor">#FF000000</color>
     <color name="transparent">#00000000</color>
+
+    <color name="colorGrey">#c0e1e1e1</color>
+    <color name="colorText">#292828</color>
+
+    <color name="sortFilterActivityBackground">#ffffff</color>
 </resources>

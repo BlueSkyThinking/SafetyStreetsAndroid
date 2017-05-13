@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/sortFilterActivityBackground"
+    tools:context="ved.com.myapplication.MainActivity"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/TopicStyle"
+        android:text="@string/sort"/>
+
+    <android.support.v7.widget.AppCompatSpinner
+        style="@style/SpinnerStyle"
+        android:id="@+id/sortSpinner"
+        android:entries="@array/sortlist" />
+
+    <TextView
+        style="@style/TopicStyle"
+        android:text="@string/show"/>
+    
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/showRg"
+        android:orientation="vertical"
+        android:background="@color/sortFilterActivityBackground"
+        android:elevation="5dp">
+    <RadioButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/showAll"/>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="0.5dp"
+            android:background="#9d9b9b"/>
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/showNotAll"/>
+    </RadioGroup>
+
+    <TextView
+        style="@style/TopicStyle"
+        android:text="@string/filters"
+        android:elevation="6dp"/>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="0.5dp"
+        android:background="#9d9b9b"/>
+
+    <TextView
+        style="@style/TvForSpinnerStyle"
+        android:text="@string/filter0"/>
+    <android.support.v7.widget.AppCompatSpinner
+        style="@style/SpinnerStyle"
+        android:id="@+id/filter0Spinner"
+        android:entries="@array/filter0list"/>
+
+    <TextView
+        style="@style/TvForSpinnerStyle"
+        android:text="@string/filter1"/>
+    <android.support.v7.widget.AppCompatSpinner
+        style="@style/SpinnerStyle"
+        android:id="@+id/filter1Spinner"
+        android:entries="@array/filter1list"/>
+
+    <TextView
+        style="@style/TvForSpinnerStyle"
+        android:text="@string/filter2"/>
+    <android.support.v7.widget.AppCompatSpinner
+        style="@style/SpinnerStyle"
+        android:id="@+id/filter2Spinner"
+        android:entries="@array/filter2list" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="0.5dp"
+        android:background="#9d9b9b"/>
+
+    <android.support.v7.widget.SwitchCompat
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:background="@color/sortFilterActivityBackground"
+        android:text="@string/switchBtn"
+        android:id="@+id/switchBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:textSize="18sp"
+        android:textColor="@color/sortFilterActivityBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/showBtn"
+        android:onClick="show"
+        android:background="@color/colorPrimary"/>
+
+</LinearLayout>

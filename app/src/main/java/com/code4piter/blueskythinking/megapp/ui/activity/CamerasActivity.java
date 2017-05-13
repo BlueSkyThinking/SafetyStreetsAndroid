@@ -55,8 +55,8 @@ public class CamerasActivity extends AppCompatActivity {
             public boolean onQueryTextSubmit(String query) {
                 Log.d(TAG, "onQueryTextSubmit: ");
                 SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(CamerasActivity.this);
-                int dangerLevel = pref.getInt(FilterActivity.PREF_DANGER_LEVEL,0);
-                int distance = pref.getInt(FilterActivity.PREF_DISTANCE,5);
+                int dangerLevel = pref.getInt(FilterActivity.PREF_DANGER_LEVEL, 0);
+                int distance = pref.getInt(FilterActivity.PREF_DISTANCE, 5);
 	            String sortBy = pref.getString(FilterActivity.PREF_SORT_BY, "dangerLevel");
 	            double lat = mLocation.getLatitude();
                 double lng = mLocation.getLongitude();
@@ -67,7 +67,7 @@ public class CamerasActivity extends AppCompatActivity {
                 cameraListDto.setSearch(query);
                 cameraListDto.setSortBy(sortBy);
                 cameraListDto.setDistance(distance);
-                Call<List<CameraDto>> call = api.getCamerasList(cameraListDto);
+                Call<List<CameraDto>> call = api.getAllCamerasBySearch(cameraListDto);
                 call.enqueue(new Callback<List<CameraDto>>() {
                     @Override
                     public void onResponse(Call<List<CameraDto>> call, Response<List<CameraDto>> response) {
