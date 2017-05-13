@@ -27,4 +27,5 @@ public interface CameraAPI {
 
 	@GET("/camera/getAll")
 	Call<List<MapCameraDto>> getAllCamerasForMap();
+
 }

@@ -1,5 +1,8 @@
 package com.code4piter.blueskythinking.megapp.model;
 
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
+
 import com.google.android.gms.maps.model.LatLng;
 
 

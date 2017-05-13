@@ -1,5 +1,6 @@
 package com.code4piter.blueskythinking.megapp.ui.activity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -47,7 +48,7 @@ public class CamerasActivity extends AppCompatActivity {
             public boolean onQueryTextSubmit(String query) {
                 Log.d(TAG, "onQueryTextSubmit: ");
                 SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(CamerasActivity.this);
-                int dangerLevel = pref.getInt(FilterActivity.PREF_DANGER_LEVEL,0);
+                boolean sortDirection = pref.getBoolean(FilterActivity.PREF_SORT_DIRECTION,true);
                 int distance = pref.getInt(FilterActivity.PREF_DISTANCE,5);
                 String sortBy = pref.getString(FilterActivity.PREF_SORT_BY,"danger_level");
                 double lat = mLocation.getLatitude();
@@ -55,11 +56,12 @@ public class CamerasActivity extends AppCompatActivity {
                 RequestCameraListDto cameraListDto = new RequestCameraListDto();
                 cameraListDto.setLatitude((long) lat);
                 cameraListDto.setLongitude((long) lng);
-                cameraListDto.setDangerLevel((double) dangerLevel);
+//                cameraListDto.setDangerLevel((double) dangerLevel);
                 cameraListDto.setSearch(query);
                 cameraListDto.setSortBy(sortBy);
                 cameraListDto.setDistance(distance);
-                Call<List<CameraDto>> call = api.getCamerasList(cameraListDto);
+                cameraListDto.setSortDirection(sortDirection);
+                Call<List<CameraDto>> call = api.getAllCamerasBySearch(cameraListDto);
                 call.enqueue(new Callback<List<CameraDto>>() {
                     @Override
                     public void onResponse(Call<List<CameraDto>> call, Response<List<CameraDto>> response) {
