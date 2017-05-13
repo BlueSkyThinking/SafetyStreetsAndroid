@@ -13,9 +13,21 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.code4piter.blueskythinking.megapp.R;
+import com.code4piter.blueskythinking.megapp.model.dto.LocationDto;
+import com.code4piter.blueskythinking.megapp.model.dto.NearCamerasDto;
 import com.code4piter.blueskythinking.megapp.permissions.PermissionHelper;
+import com.code4piter.blueskythinking.megapp.request.CameraAPI;
+import com.code4piter.blueskythinking.megapp.request.RetrofitAPIClient;
+import com.code4piter.blueskythinking.megapp.ui.adapter.CameraAdapter;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class TrackGPS extends Service implements LocationListener {
 
@@ -31,8 +43,14 @@ public class TrackGPS extends Service implements LocationListener {
 	double latitude;
 	double longitude;
 
-	public TrackGPS(Context context) {
+	private CameraAdapter cameraAdapter;
+
+	private List<NearCamerasDto> nearCamerasDtos;
+
+	public TrackGPS(Context context, List<NearCamerasDto> nearCamerasDtos, CameraAdapter cameraAdapter) {
 		this.context = context;
+		this.nearCamerasDtos = nearCamerasDtos;
+		this.cameraAdapter = cameraAdapter;
 		getLoc();
 	}
 
@@ -53,27 +71,6 @@ public class TrackGPS extends Service implements LocationListener {
 				Log.d(TAG, "GPS and Network currently unavailable");
 			} else {
 				this.canGetLocation = true;
-				if (checkGPS) {
-					if (loc == null) {
-						try {
-							locationManager.requestLocationUpdates(
-									LocationManager.GPS_PROVIDER,
-									MIN_TIME_BW_UPDATES,
-									MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
-							if (locationManager != null) {
-								loc = locationManager
-										.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-								if (loc != null) {
-									latitude = loc.getLatitude();
-									longitude = loc.getLongitude();
-								}
-							}
-						} catch (SecurityException e) {
-							e.printStackTrace();
-						}
-					}
-				}
-
 				if (checkNetwork) {
 					try {
 						locationManager.requestLocationUpdates(
@@ -84,7 +81,6 @@ public class TrackGPS extends Service implements LocationListener {
 						if (locationManager != null) {
 							loc = locationManager
 									.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-
 						}
 
 						if (loc != null) {
@@ -94,10 +90,30 @@ public class TrackGPS extends Service implements LocationListener {
 					} catch (SecurityException e) {
 
 					}
+				} else if (loc == null) {
+					try {
+						locationManager.requestLocationUpdates(
+								LocationManager.GPS_PROVIDER,
+								MIN_TIME_BW_UPDATES,
+								MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
+						if (locationManager != null) {
+							loc = locationManager
+									.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+							if (loc != null) {
+								latitude = loc.getLatitude();
+								longitude = loc.getLongitude();
+							}
+						}
+					} catch (SecurityException e) {
+						e.printStackTrace();
+					}
 				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+		if (loc != null) {
+			setupNearCameras(loc);
 		}
 
 		return loc;
@@ -167,6 +183,31 @@ public class TrackGPS extends Service implements LocationListener {
 
 	@Override
 	public void onLocationChanged(Location location) {
+		setupNearCameras(location);
+	}
+
+	private void setupNearCameras(Location location) {
+		CameraAPI cameraAPI = RetrofitAPIClient.getClient().create(CameraAPI.class);
+		cameraAPI.getNearCameras(new LocationDto(location.getLatitude(), location.getLongitude())).enqueue(new
+				                                                                                                   Callback<List<NearCamerasDto>>() {
+					                                                                                                   @Override
+					                                                                                                   public void onResponse(Call<List<NearCamerasDto>> call, Response<List<NearCamerasDto>>
+							                                                                                                   response) {
+						                                                                                                   if (!response.isSuccessful()) {
+							                                                                                                   return;
+						                                                                                                   }
+						                                                                                                   nearCamerasDtos.clear();
+						                                                                                                   nearCamerasDtos.addAll(response.body());
+						                                                                                                   cameraAdapter.notifyDataSetChanged();
+					                                                                                                   }
+
+					                                                                                                   @Override
+					                                                                                                   public void onFailure(Call<List<NearCamerasDto>> call, Throwable t) {
+						                                                                                                   t.printStackTrace();
+						                                                                                                   Toast.makeText(TrackGPS.this, getApplicationContext().getString(R.string
+								                                                                                                   .failedToLoadNearCameras), Toast.LENGTH_SHORT).show();
+					                                                                                                   }
+				                                                                                                   });
 	}
 
 	@Override

@@ -7,15 +7,15 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.code4piter.blueskythinking.megapp.R;
-import com.code4piter.blueskythinking.megapp.model.Camera;
+import com.code4piter.blueskythinking.megapp.model.dto.NearCamerasDto;
 
 import java.util.List;
 
 public class CameraAdapter extends RecyclerView.Adapter<CameraAdapter.CameraViewHolder> {
 
-	private List<Camera> cameras;
+	private List<NearCamerasDto> cameras;
 
-	public CameraAdapter(List<Camera> cameras) {
+	public CameraAdapter(List<NearCamerasDto> cameras) {
 		super();
 		this.cameras = cameras;
 	}
@@ -36,7 +36,7 @@ public class CameraAdapter extends RecyclerView.Adapter<CameraAdapter.CameraView
 		holder.camera.setText(cameras.get(position).getName());
 	}
 
-	public Camera getItem(int position) {
+	public NearCamerasDto getItem(int position) {
 		return cameras.get(position);
 	}
 
