@@ -1,0 +1,10 @@
+
+Csquid:S1659"'Declare "cardView2" on a separate line.(æ½§8‘ìÃŸÀ+
+Csquid:S1659"'Declare "cardView3" on a separate line.(æ½§8šìÃŸÀ+
+@squid:S1659"$Declare "group2" on a separate line.(íÌ¢ì8šìÃŸÀ+
+msquid:S1192"LDefine a constant instead of duplicating this literal "dangerLevel" 3 times.(•î—ëıÿÿÿÿ8šìÃŸÀ+
+ssquid:S1450"WRemove the "cardView" field and declare it as a local variable in the relevant methods.(æ½§8šìÃŸÀ+
+tsquid:S1450"XRemove the "cardView2" field and declare it as a local variable in the relevant methods.(æ½§8šìÃŸÀ+
+tsquid:S1450"XRemove the "cardView3" field and declare it as a local variable in the relevant methods.(æ½§8šìÃŸÀ+
+rsquid:S1132"QMove the "dangerLevel" string literal on the left side of this string comparison.(™Œ€Ğúÿÿÿÿ8šìÃŸÀ+
+@squid:S2131"Use "Integer.toString" instead.(”ÄÕıÿÿÿÿ8šìÃŸÀ+

@@ -1,0 +1,14 @@
+
+Ksquid:S1068"1Remove this unused "cameraAdapter" private field.(ÿ‡¹»üÿÿÿÿ
+Msquid:S1068"3Remove this unused "nearCamerasDtos" private field.(§“Ş’ûÿÿÿÿ
+Osquid:S1141"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+Osquid:S1141"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+fsquid:S3776"RRefactor this method to reduce its Cognitive Complexity from 27 to the 15 allowed.(ôñ¡
+?squid:S1166"%Either log or rethrow this exception.(ÿëÛßúÿÿÿÿ
+?squid:S1166"%Either log or rethrow this exception.(ÿëÛßúÿÿÿÿ
+:squid:S1166"%Either log or rethrow this exception.(”ı¾
+›squid:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(é¬“âùÿÿÿÿ
+›squid:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(±ìÑùÿÿÿÿ
+–squid:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¬•çŠ
+=squid:S1148"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+=squid:S1148"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
